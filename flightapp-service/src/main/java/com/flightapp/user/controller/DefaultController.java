@@ -1,41 +1,26 @@
 package com.flightapp.user.controller;
 
-import java.util.Base64;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@RequestMapping("/api/v1.0")
+@RequestMapping("/api/v1.0/app")
 public class DefaultController {
 
-	@Value("${app.auth.username:user}")
-	private String authUserName;
-
-	@Value("${app.auth.password:user}")
-	private String authPassword;
-
-	@GetMapping
+	@GetMapping("/test")
 	@Operation(summary = "Check app status")
 	private String defaultHandler() {
 		return "OK";	
 	}
-
-	@GetMapping("/api/admin")
-	private String defaultHandlerForAdmin(@RequestHeader("authorization") String authString) {
-		byte[] decode = Base64.getDecoder().decode(authString.split(" ")[1]);
-		String[] credentials = new String(decode).split(":");
-		if (credentials[0].equalsIgnoreCase(authUserName) && credentials[1].equalsIgnoreCase(authPassword))
-			return "OK";
-		else
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
-
+	
+	@GetMapping("/admin")
+	@PreAuthorize("hasRole('ADMIN')")
+	@Operation(summary = "Check admin access after login")
+	public String adminAccess() {
+		return "Admin Board.";
 	}
 }

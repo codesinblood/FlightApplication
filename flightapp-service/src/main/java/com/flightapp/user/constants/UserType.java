@@ -2,7 +2,7 @@ package com.flightapp.user.constants;
 
 public enum UserType {
 	
-	ADMIN,
-	CUSTOMER
+	ROLE_ADMIN,
+	ROLE_USER
 
 }

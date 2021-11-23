@@ -1,12 +1,20 @@
 package com.flightapp.user.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,8 +26,13 @@ public class AppUser {
 	@Column(name = "APPUSER_ID")
 	private int appUserId;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "USER_TYPE", length = 50, nullable = true)
-	private String userType;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(	name = "USER_ROLES", 
+				joinColumns = @JoinColumn(name = "APPUSER_ID"), 
+				inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+	private Set<UserRole> roles = new HashSet<>();
 
 	@Column(name = "EMAIL", length = 200, unique=true, nullable = false)
 	private String email;
@@ -51,12 +64,12 @@ public class AppUser {
 		this.appUserId = appUserId;
 	}
 
-	public String getUserType() {
-		return userType;
+	public Set<UserRole> getRoles() {
+		return roles;
 	}
 
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setRoles(Set<UserRole> roles) {
+		this.roles = roles;
 	}
 
 	public String getEmail() {
@@ -117,7 +130,7 @@ public class AppUser {
 
 	@Override
 	public String toString() {
-		return "AppUser [appUserId=" + appUserId + ", userType=" + userType + ", email=" + email + ", userName="
+		return "AppUser [appUserId=" + appUserId + ", userType=" + roles + ", email=" + email + ", userName="
 				+ userName + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", dob="
 				+ dob + ", gender=" + gender + "]";
 	}
