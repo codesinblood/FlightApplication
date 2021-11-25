@@ -8,10 +8,10 @@ public class IllegalAccessException extends Exception {
 
 	private String code;
 	private String message;
-	
+
 	public IllegalAccessException(String code, String message) {
 		this.code = code;
 		this.message = message;
 	}
-	
+
 }

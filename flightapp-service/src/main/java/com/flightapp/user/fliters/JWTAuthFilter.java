@@ -20,9 +20,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.flightapp.auth.jwt.utils.JwtUtils;
 import com.flightapp.auth.service.AppUserServiceImpl;
 
-
 public class JWTAuthFilter extends OncePerRequestFilter {
-	
+
 	@Autowired
 	private JwtUtils jwtUtils;
 
@@ -63,4 +62,3 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 		return null;
 	}
 }
-

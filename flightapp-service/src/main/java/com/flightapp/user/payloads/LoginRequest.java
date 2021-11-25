@@ -3,7 +3,7 @@ package com.flightapp.user.payloads;
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
-	
+
 	@NotBlank
 	private String username;
 
@@ -30,7 +30,5 @@ public class LoginRequest {
 	public String toString() {
 		return "LoginRequest [username=" + username + ", password=" + password + "]";
 	}
-	
+
 }
-
-

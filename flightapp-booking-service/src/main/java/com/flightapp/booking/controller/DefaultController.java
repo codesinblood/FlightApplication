@@ -13,7 +13,6 @@ public class DefaultController {
 	@GetMapping
 	@Operation(summary = "Check app status")
 	private String defaultHandler() {
-		return "OK";	
+		return "OK";
 	}
 }
-

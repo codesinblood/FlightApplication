@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flightapp.user.entity.AppUser;
 
 public class AppUserDetailsImpl implements UserDetails {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private int id;
@@ -38,14 +38,9 @@ public class AppUserDetailsImpl implements UserDetails {
 
 	public static AppUserDetailsImpl build(AppUser user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-				.collect(Collectors.toList());
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
 
-		return new AppUserDetailsImpl(
-				user.getAppUserId(), 
-				user.getUserName(), 
-				user.getEmail(),
-				user.getPassword(), 
+		return new AppUserDetailsImpl(user.getAppUserId(), user.getUserName(), user.getEmail(), user.getPassword(),
 				authorities);
 	}
 

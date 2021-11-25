@@ -29,15 +29,13 @@ public class AppUser {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "USER_TYPE", length = 50, nullable = true)
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(	name = "USER_ROLES", 
-				joinColumns = @JoinColumn(name = "APPUSER_ID"), 
-				inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+	@JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "APPUSER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
 	private Set<UserRole> roles = new HashSet<>();
 
-	@Column(name = "EMAIL", length = 200, unique=true, nullable = false)
+	@Column(name = "EMAIL", length = 200, unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "USERNAME", length = 50, unique=true, nullable = true)
+	@Column(name = "USERNAME", length = 50, unique = true, nullable = true)
 	private String userName;
 
 	@Column(name = "PASSWORD", nullable = true)
@@ -49,7 +47,7 @@ public class AppUser {
 	@Column(name = "LASTNAME", length = 200)
 	private String lastName;
 
-	@Column(name = "DOB", columnDefinition="DATE")
+	@Column(name = "DOB", columnDefinition = "DATE")
 	@Temporal(TemporalType.DATE)
 	private Date dob;
 
@@ -130,9 +128,9 @@ public class AppUser {
 
 	@Override
 	public String toString() {
-		return "AppUser [appUserId=" + appUserId + ", userType=" + roles + ", email=" + email + ", userName="
-				+ userName + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", dob="
-				+ dob + ", gender=" + gender + "]";
+		return "AppUser [appUserId=" + appUserId + ", userType=" + roles + ", email=" + email + ", userName=" + userName
+				+ ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob
+				+ ", gender=" + gender + "]";
 	}
 
 }

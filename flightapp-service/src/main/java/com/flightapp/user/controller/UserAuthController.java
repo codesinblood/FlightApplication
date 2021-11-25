@@ -25,17 +25,17 @@ import com.flightapp.user.payloads.LoginResponse;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@RequestMapping("/api/v1.0/auth")
+@RequestMapping("/v1.0/auth")
 public class UserAuthController {
-	
+
 	@Autowired
 	AuthenticationManager authenticationManager;
 
 	@Autowired
 	JwtUtils jwtUtils;
-	
+
 	@GetMapping
-	public String defaultEndPoint() {
+	public String checkAppStatus() {
 		return "Ok";
 	}
 

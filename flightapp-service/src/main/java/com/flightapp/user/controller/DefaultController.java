@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
-@RequestMapping("/api/v1.0/app")
+@RequestMapping("/v1.0/app")
 public class DefaultController {
 
 	@GetMapping("/test")
 	@Operation(summary = "Check app status")
-	private String defaultHandler() {
-		return "OK";	
+	private String checkAppStatus() {
+		return "OK";
 	}
-	
+
 	@GetMapping("/admin")
 	@PreAuthorize("hasRole('ADMIN')")
 	@Operation(summary = "Check admin access after login")
-	public String adminAccess() {
-		return "Admin Board.";
+	public String checkAuthStatus() {
+		return "Auth Ok";
 	}
 }

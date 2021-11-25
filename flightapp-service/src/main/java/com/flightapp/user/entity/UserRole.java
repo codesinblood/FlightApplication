@@ -12,7 +12,7 @@ import com.flightapp.user.constants.UserType;
 
 @Entity(name = "ROLE")
 public class UserRole {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ROLE_ID")
