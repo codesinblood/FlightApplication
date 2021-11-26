@@ -28,7 +28,6 @@ public class TicketController {
 	public ResponseEntity<TicketSDO> getTicket(@RequestParam("email") Optional<String> email,
 			@RequestParam("pnr") Optional<String> pnr) {
 
-		System.out.println(email + "------" + pnr);
 		TicketSDO ticket = ticketService.getTicket(pnr.isPresent() ? pnr.get() : null,
 				email.isPresent() ? email.get() : null);
 		return new ResponseEntity<TicketSDO>(ticket, HttpStatus.OK);
@@ -37,7 +36,6 @@ public class TicketController {
 	@PostMapping("/save")
 	public ResponseEntity<String> bookTicket(@RequestBody CreateTicketSDO ticketSDO) {
 
-		System.out.println(ticketSDO);
 		String pnr = ticketService.bookTicket(ticketSDO);
 		return ResponseEntity.ok("Ticket created successfully. Pnr - " + pnr);
 	}

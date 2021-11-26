@@ -35,9 +35,9 @@ public class UserOpsController {
 			@RequestParam("end") Optional<String> end, @RequestParam("roundtrip") String roundtrip)
 			throws JsonMappingException, JsonProcessingException {
 
-		List<RouteDTO> searchRoutes = userOpsService.searchRoutes(from, to, start.isPresent() ? start.get() : null,
+		List<RouteDTO> routes = userOpsService.searchRoutes(from, to, start.isPresent() ? start.get() : null,
 				end.isPresent() ? end.get() : null, roundtrip);
-		return new ResponseEntity<List<RouteDTO>>(searchRoutes, HttpStatus.OK);
+		return new ResponseEntity<List<RouteDTO>>(routes, HttpStatus.OK);
 	}
 
 	// Book ticket by flightId

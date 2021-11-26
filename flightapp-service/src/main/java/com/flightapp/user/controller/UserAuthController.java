@@ -43,7 +43,6 @@ public class UserAuthController {
 	@Operation(summary = "Authenticates the user with predefined username and password")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-		System.out.println("LoginRequest - " + loginRequest.toString());
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
@@ -54,7 +53,6 @@ public class UserAuthController {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		System.out.println("JWT - " + jwt);
 		return ResponseEntity.ok(
 				new LoginResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
 	}

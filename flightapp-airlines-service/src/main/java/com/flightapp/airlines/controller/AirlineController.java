@@ -25,8 +25,8 @@ public class AirlineController {
 	@GetMapping
 	public ResponseEntity getAirline(@RequestParam("name") String name) throws NotFoundException {
 
-		AirlineSDO findAirlineByName = airlineService.findAirlineByName(name);
-		return new ResponseEntity<AirlineSDO>(findAirlineByName, HttpStatus.OK);
+		AirlineSDO airlineSDO = airlineService.findAirlineByName(name);
+		return new ResponseEntity<AirlineSDO>(airlineSDO, HttpStatus.OK);
 	}
 
 	// Create Airline

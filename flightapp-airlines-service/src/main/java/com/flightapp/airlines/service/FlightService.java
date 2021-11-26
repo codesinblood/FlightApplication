@@ -51,9 +51,9 @@ public class FlightService {
 
 	public FlightSDO getFlightById(int flightId) {
 
-		Optional<Flight> findByFlightId = flightRepository.findByFlightId(flightId);
-		if (findByFlightId.isPresent()) {
-			return mapper.map(findByFlightId.get(), FlightSDO.class);
+		Optional<Flight> flight = flightRepository.findByFlightId(flightId);
+		if (flight.isPresent()) {
+			return mapper.map(flight.get(), FlightSDO.class);
 		} else {
 			throw new NotFoundException("F_404", "Flight not found");
 		}
@@ -62,9 +62,9 @@ public class FlightService {
 	public int createFlight(FlightSDO flightSDO) {
 		System.out.println(flightSDO);
 		Flight flightEntity = mapper.map(flightSDO, Flight.class);
-		Optional<Airline> findByAirlineId = airlineRepository.findByAirlineId(flightSDO.getAirline().getAirlineId());
-		if (findByAirlineId.isPresent()) {
-			flightEntity.setAirline(findByAirlineId.get());
+		Optional<Airline> flight = airlineRepository.findByAirlineId(flightSDO.getAirline().getAirlineId());
+		if (flight.isPresent()) {
+			flightEntity.setAirline(flight.get());
 			flightEntity = flightRepository.save(flightEntity);
 		} else {
 			throw new NotFoundException("A_404", "Airline not found");

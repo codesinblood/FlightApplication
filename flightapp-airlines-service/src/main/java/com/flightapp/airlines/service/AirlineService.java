@@ -17,7 +17,7 @@ public class AirlineService {
 
 	@Autowired
 	AirlineRepository airlineRepository;
-	
+
 	@Autowired
 	FlightRepository flightRepository;
 
@@ -26,16 +26,15 @@ public class AirlineService {
 
 	public AirlineSDO findAirlineByName(String name) throws NotFoundException {
 
-		Optional<Airline> findByName = airlineRepository.findByName(name);
-		if (findByName.isPresent())
-			return mapper.map(findByName.get(), AirlineSDO.class);
+		Optional<Airline> airline = airlineRepository.findByName(name);
+		if (airline.isPresent())
+			return mapper.map(airline.get(), AirlineSDO.class);
 		else
 			throw new NotFoundException("A_404", "Airline not found");
 	}
 
 	public int createAirline(AirlineSDO airlineSDO) {
 
-		System.out.println(airlineSDO);
 		Airline entity = mapper.map(airlineSDO, Airline.class);
 		entity = airlineRepository.save(entity);
 		return entity.getAirlineId();
@@ -43,10 +42,11 @@ public class AirlineService {
 
 	public void updateAirline(AirlineSDO airlineSDO) {
 
-		Optional<Airline> findByAirlineId = airlineRepository.findByAirlineId(airlineSDO.getAirlineId());
-		if (findByAirlineId.isPresent()) {
-			findByAirlineId.get().setStatus(airlineSDO.getStatus());
-			airlineRepository.save(findByAirlineId.get());
+		Optional<Airline> airline = airlineRepository.findByAirlineId(airlineSDO.getAirlineId());
+		if (airline.isPresent()) {
+			airline.get().setStatus(airlineSDO.getStatus());
+			airlineRepository.save(airline.get());
+			//Blocking an airline will block all files associated with the airline. 
 			flightRepository.updateAllFlights(airlineSDO.getStatus(), airlineSDO.getAirlineId());
 		} else {
 			throw new NotFoundException("A_404", "Airline not found");

@@ -15,11 +15,11 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
 
 	List<Flight> findAllByAirline(Airline airline);
 
-	Optional<Flight> findByFlightId(int id);
+	Optional<Flight> findByFlightId(int flightId);
 
 	List<Flight> findAllByAirlineAndStatus(Airline airline, Status status);
-	
+
 	@Query(value = "UPDATE Flight SET STATUS = :status WHERE AIRLINEID = :airlineId", nativeQuery = true)
-	void updateAllFlights(@Param("status") Status status,@Param("airlineId") int i);
+	void updateAllFlights(@Param("status") Status status, @Param("airlineId") int airlineId);
 
 }

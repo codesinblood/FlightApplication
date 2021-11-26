@@ -12,7 +12,7 @@ public interface AirlineRepository extends JpaRepository<Airline, Long> {
 
 	Optional<Airline> findByName(String airlineName);
 
-	Optional<Airline> findByAirlineId(int i);
+	Optional<Airline> findByAirlineId(int airlineId);
 
 	List<Airline> findAllByStatus(Status status);
 

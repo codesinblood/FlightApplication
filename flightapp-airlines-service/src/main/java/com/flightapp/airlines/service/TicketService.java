@@ -65,9 +65,8 @@ public class TicketService {
 	@SuppressWarnings("deprecation")
 	public String bookTicket(CreateTicketSDO ticketSDO) {
 		Ticket ticket = mapper.map(ticketSDO, Ticket.class);
-		System.out.println(ticketSDO.getTravelDate());
-		Optional<Route> findByRouteId = routeRepository.findByRouteId(ticketSDO.getRoute().getRouteId());
-		LocalTime flightDepartureTime = findByRouteId.get().getDepartureTime();
+		Optional<Route> route = routeRepository.findByRouteId(ticketSDO.getRoute().getRouteId());
+		LocalTime flightDepartureTime = route.get().getDepartureTime();
 		LocalDateTime departureDateTime = LocalDateTime.of(ticketSDO.getTravelDate().getYear(),
 				ticketSDO.getTravelDate().getMonth(), ticketSDO.getTravelDate().getDate(),
 				flightDepartureTime.getHour(), flightDepartureTime.getMinute(), flightDepartureTime.getSecond());
@@ -77,7 +76,6 @@ public class TicketService {
 		ticket.setTicketStatus(TicketStatus.WAITLIST);
 		ticket.setPnr(generatePnr(ticketSDO.getRoute().getRouteId()));
 		ticket.setTravelDate(departureTime);
-		System.out.println(ticket.getTicketId());
 		ticket = ticketRepository.save(ticket);
 		createPassenger(ticketSDO.getPassenger(), ticket);
 		return ticket.getPnr();
@@ -88,9 +86,10 @@ public class TicketService {
 		Optional<Ticket> ticketByPnr = ticketRepository.findByPnr(pnr);
 		if (ticketByPnr.isPresent()) {
 			Ticket ticket = ticketByPnr.get();
-			System.out.println("getDepartureTime" + ticket.getTravelDate());
 			ZonedDateTime departureTime = ZonedDateTime.ofInstant(ticket.getTravelDate().toInstant(),
 					ZoneId.systemDefault());
+			
+			// Restricting cancelation of tickets with departure time less than 24 hours
 			if (ZonedDateTime.now().isBefore(departureTime.plusHours(24))) {
 				ticket.setTicketStatus(TicketStatus.CANCELED);
 				ticket.setBookingStatus(BookingStatus.REFUNDED);
@@ -101,12 +100,11 @@ public class TicketService {
 		}
 	}
 
-	String generatePnr(Integer routeId) {
-
-		Optional<Route> findByRouteId = routeRepository.findByRouteId(routeId);
+	private String generatePnr(Integer routeId) {
+		Optional<Route> routeEntity = routeRepository.findByRouteId(routeId);
 		StringBuilder buildPnr = new StringBuilder();
-		if (findByRouteId.isPresent()) {
-			Route route = findByRouteId.get();
+		if (routeEntity.isPresent()) {
+			Route route = routeEntity.get();
 			return buildPnr.append(route.getFlight().getAirline().getName().substring(0, 3).toUpperCase())
 					.append(route.getFromCity().substring(0, 3).toUpperCase())
 					.append(route.getToCity().substring(0, 3).toUpperCase()).append(new Date().getTime()).toString();
