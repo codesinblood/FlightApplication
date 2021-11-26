@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.flightapp.airlines.constants.Status;
 import com.flightapp.airlines.entity.Route;
 
 public interface RouteRepository extends JpaRepository<Route, Integer> {
 
-	List<Route> findAllByFromCityAndToCity(String fromCity, String toCity);
+	List<Route> findAllByFromCityAndToCityAndStatus(String fromCity, String toCity, Status status);
 
 	@Query(value = "SELECT * FROM ROUTE WHERE DEPARTURETIME >= :departure AND ARRIVALTIME <= :arrival AND FROMCITY = :from AND TOCITY = :to", nativeQuery = true)
 	List<Route> getFights(@Param("departure") LocalTime arrival, @Param("arrival") LocalTime departure,

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.flightapp.airlines.db.AirlineRepository;
+import com.flightapp.airlines.db.FlightRepository;
 import com.flightapp.airlines.entity.Airline;
 import com.flightapp.airlines.error.NotFoundException;
 import com.flightapp.airlines.payload.AirlineSDO;
@@ -16,6 +17,9 @@ public class AirlineService {
 
 	@Autowired
 	AirlineRepository airlineRepository;
+	
+	@Autowired
+	FlightRepository flightRepository;
 
 	@Autowired
 	ModelMapper mapper;
@@ -43,6 +47,7 @@ public class AirlineService {
 		if (findByAirlineId.isPresent()) {
 			findByAirlineId.get().setStatus(airlineSDO.getStatus());
 			airlineRepository.save(findByAirlineId.get());
+			flightRepository.updateAllFlights(airlineSDO.getStatus(), airlineSDO.getAirlineId());
 		} else {
 			throw new NotFoundException("A_404", "Airline not found");
 		}

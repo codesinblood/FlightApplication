@@ -1,23 +1,21 @@
-title FlightApp Authentication
+title FlightApp Architecture
 
 
 actor Admin
 actor User
-User -> FlightAppService: Search Flight and Airlines
-FlightAppService -> AirlineService: Search operations
-AirlineService --> FlightAppService: Airline and Fight details
-FlightAppService --> User: Flight details
-User -> FlightAppService:  Cancel or Book new ticket
-FlightAppService -> BookingService: Ticket operations
-BookingService --> FlightAppService: Ticket details
-FlightAppService --> User: Ticket details
+User -> FlightAppClient: Search Flight and Airlines
+FlightAppClient -> AirlineService: Search operations
+AirlineService --> FlightAppClient: Airline and Fight details
+FlightAppClient --> User: Flight details
+User -> FlightAppClient:  Cancel or Book new ticket
+FlightAppClient -> AirlineService: Ticket operations
+AirlineService --> FlightAppClient: Ticket details
+FlightAppClient --> User: Ticket details
 
 note over Admin,User: Admin Operations
-Admin -> FlightAppService: Authentication with Username and Password
-FlightAppService --> Admin: Auth response
-Admin -> FlightAppService: Add or Edit AirlineService 
-FlightAppService -> AirlineService: Airline opreations
-AirlineService --> FlightAppService : Airline ops response
-FlightAppService --> Admin: Acknowledgement
-
-
+Admin -> FlightAppClient: Authentication with Username and Password
+FlightAppClient --> Admin: Auth response
+Admin -> FlightAppClient: Add or Edit AirlineService 
+FlightAppClient -> AirlineService: Airline opreations
+AirlineService --> FlightAppClient : Airline ops response
+FlightAppClient --> Admin: Acknowledgement

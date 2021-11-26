@@ -22,7 +22,7 @@ import com.flightapp.airlines.constants.TicketStatus;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TICKETID")
 	private Integer ticketId;
 

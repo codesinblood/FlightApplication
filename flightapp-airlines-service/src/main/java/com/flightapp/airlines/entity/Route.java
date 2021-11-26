@@ -22,7 +22,7 @@ import com.flightapp.airlines.constants.Status;
 public class Route {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ROUTEID")
 	private Integer routeId;
 
