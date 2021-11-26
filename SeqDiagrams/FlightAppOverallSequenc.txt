@@ -1,0 +1,23 @@
+title FlightApp Authentication
+
+
+actor Admin
+actor User
+User -> FlightAppService: Search Flight and Airlines
+FlightAppService -> AirlineService: Search operations
+AirlineService --> FlightAppService: Airline and Fight details
+FlightAppService --> User: Flight details
+User -> FlightAppService:  Cancel or Book new ticket
+FlightAppService -> BookingService: Ticket operations
+BookingService --> FlightAppService: Ticket details
+FlightAppService --> User: Ticket details
+
+note over Admin,User: Admin Operations
+Admin -> FlightAppService: Authentication with Username and Password
+FlightAppService --> Admin: Auth response
+Admin -> FlightAppService: Add or Edit AirlineService 
+FlightAppService -> AirlineService: Airline opreations
+AirlineService --> FlightAppService : Airline ops response
+FlightAppService --> Admin: Acknowledgement
+
+
