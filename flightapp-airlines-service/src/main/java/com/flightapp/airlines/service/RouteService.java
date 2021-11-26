@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.flightapp.airlines.constants.Status;
 import com.flightapp.airlines.db.RouteRepository;
 import com.flightapp.airlines.entity.Route;
 import com.flightapp.airlines.payload.RouteSDO;
@@ -29,11 +30,11 @@ public class RouteService {
 		if (arrival != null && departure != null) {
 			routes = routeRepository.getActiveFights(departure, arrival, fromCity, toCity);
 		} else {
-			routes = routeRepository.findAllByFromCityAndToCity(fromCity, toCity);
+			routes = routeRepository.findAllByFromCityAndToCityAndStatus(fromCity, toCity, Status.A);
 		}
 
 		if (isRoundTrip.equalsIgnoreCase("yes")) {
-			routes.addAll(routeRepository.findAllByFromCityAndToCity(toCity, fromCity));
+			routes.addAll(routeRepository.findAllByFromCityAndToCityAndStatus(toCity, fromCity, Status.A));
 		}
 
 		routes.forEach(x -> routeSDOs.add(mapper.map(x, RouteSDO.class)));

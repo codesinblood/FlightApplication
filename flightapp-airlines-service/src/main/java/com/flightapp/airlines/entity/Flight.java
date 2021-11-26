@@ -17,7 +17,7 @@ import com.flightapp.airlines.constants.Status;
 public class Flight {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "FLIGHTID")
 	private int flightId;
 
