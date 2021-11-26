@@ -2,34 +2,45 @@ package com.flightapp.airlines.payload;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flightapp.airlines.constants.Status;
 import com.flightapp.airlines.entity.Flight;
+import com.flightapp.airlines.entity.Ticket;
 
 public class RouteSDO {
-	
-	private int routeId;
-	
+
+	private Integer routeId;
+
 	private String fromCity;
-	
+
 	private String toCity;
 
 	private BigDecimal price;
-	
+
 	private Flight flight;
-	
+
 	private LocalTime departureTime;
-	
+
 	private LocalTime arrivalTime;
-	
+
 	private Status status;
+
+	@JsonIgnore
+	private Set<Ticket> ticket;
+
+	public Set<Ticket> getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Set<Ticket> ticket) {
+		this.ticket = ticket;
+	}
+
+	public void setRouteId(Integer routeId) {
+		this.routeId = routeId;
+	}
 
 	public int getRouteId() {
 		return routeId;
@@ -101,5 +112,5 @@ public class RouteSDO {
 				+ ", flight=" + flight + ", departureTime=" + departureTime + ", arrivalTime=" + arrivalTime
 				+ ", status=" + status + "]";
 	}
-	
+
 }

@@ -15,7 +15,6 @@ import com.flightapp.airlines.error.NotFoundException;
 import com.flightapp.airlines.payload.AirlineSDO;
 import com.flightapp.airlines.service.AirlineService;
 
-
 @RestController
 @RequestMapping("/v1.0/airline")
 public class AirlineController {
@@ -29,21 +28,21 @@ public class AirlineController {
 		AirlineSDO findAirlineByName = airlineService.findAirlineByName(name);
 		return new ResponseEntity<AirlineSDO>(findAirlineByName, HttpStatus.OK);
 	}
-	
-	//Create Airline
+
+	// Create Airline
 	@PostMapping("/create")
 	public ResponseEntity<String> createAirline(@RequestBody AirlineSDO airlineSDO) {
-		
+
 		airlineService.createAirline(airlineSDO);
 		return ResponseEntity.ok("Airline created successfully");
 	}
-	
-	//Block/Unblock Airline
+
+	// Block/Unblock Airline
 	@PutMapping("/updatestatus")
 	public ResponseEntity<String> updateAirlineStatus(@RequestBody AirlineSDO airlineSDO) {
-		
+
 		airlineService.updateAirline(airlineSDO);
 		return ResponseEntity.ok("Airline updated successfully");
 	}
-	
+
 }

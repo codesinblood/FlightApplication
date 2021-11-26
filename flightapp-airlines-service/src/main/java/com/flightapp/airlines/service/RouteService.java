@@ -21,9 +21,9 @@ public class RouteService {
 	@Autowired
 	RouteRepository routeRepository;
 
-	public List<RouteSDO> getAllRoutes(String fromCity, String toCity, LocalTime arrival, LocalTime departure, String isRoundTrip) {
+	public List<RouteSDO> getAllRoutes(String fromCity, String toCity, LocalTime arrival, LocalTime departure,
+			String isRoundTrip) {
 
-		System.out.println("RouteService :: arrival - " + arrival + "departure - " + departure);
 		List<Route> routes = new ArrayList<>();
 		List<RouteSDO> routeSDOs = new ArrayList<>();
 		if (arrival != null && departure != null) {
@@ -31,15 +31,12 @@ public class RouteService {
 		} else {
 			routes = routeRepository.findAllByFromCityAndToCity(fromCity, toCity);
 		}
-		
-		if(isRoundTrip.equalsIgnoreCase("yes")) {
+
+		if (isRoundTrip.equalsIgnoreCase("yes")) {
 			routes.addAll(routeRepository.findAllByFromCityAndToCity(toCity, fromCity));
 		}
-		
-		System.out.println("RouteService :: routes - " + routes.size());
-		routes.forEach(x -> {
-			routeSDOs.add(mapper.map(x, RouteSDO.class));
-		});
+
+		routes.forEach(x -> routeSDOs.add(mapper.map(x, RouteSDO.class)));
 		return routeSDOs;
 	}
 

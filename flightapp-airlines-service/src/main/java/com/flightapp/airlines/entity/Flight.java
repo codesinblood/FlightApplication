@@ -23,7 +23,7 @@ public class Flight {
 
 	@Column(name = "FLIGHTUUID")
 	private String flightUuid;
-	
+
 	@Column(name = "MODEL")
 	private String model;
 
@@ -31,13 +31,13 @@ public class Flight {
 	private String make;
 
 	@ManyToOne
-	@JoinColumn(name="AIRLINEID")
+	@JoinColumn(name = "AIRLINEID")
 	private Airline airline;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private Status status;
-	
+
 	@OneToOne(mappedBy = "flight")
 	private Route route;
 
@@ -88,7 +88,5 @@ public class Flight {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
 
 }

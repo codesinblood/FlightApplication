@@ -9,12 +9,12 @@ import com.flightapp.airlines.constants.Status;
 import com.flightapp.airlines.entity.Airline;
 import com.flightapp.airlines.entity.Flight;
 
-public interface FlightRepository extends JpaRepository<Flight, Integer>{
+public interface FlightRepository extends JpaRepository<Flight, Integer> {
 
 	List<Flight> findAllByAirline(Airline airline);
-	
+
 	Optional<Flight> findByFlightId(int id);
-	
+
 	List<Flight> findAllByAirlineAndStatus(Airline airline, Status status);
 
 }

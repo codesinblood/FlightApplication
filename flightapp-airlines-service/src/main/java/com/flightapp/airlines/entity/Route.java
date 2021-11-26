@@ -2,15 +2,18 @@ package com.flightapp.airlines.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.flightapp.airlines.constants.Status;
@@ -21,27 +24,30 @@ public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ROUTEID")
-	private int routeId;
-	
+	private Integer routeId;
+
 	@Column(name = "FROMCITY")
 	private String fromCity;
-	
+
 	@Column(name = "TOCITY")
 	private String toCity;
-	
+
 	@Column(name = "PRICE")
 	private BigDecimal price;
-	
-	@OneToOne
-	@JoinColumn(name="FLIGHTID")
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "FLIGHTID")
 	private Flight flight;
-	
+
+	@OneToMany(mappedBy = "route", fetch = FetchType.LAZY)
+	private Set<Ticket> ticket;
+
 	@Column(name = "DEPARTURETIME")
 	private LocalTime departureTime;
-	
+
 	@Column(name = "ARRIVALTIME")
 	private LocalTime arrivalTime;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "STATUS")
 	private Status status;
@@ -86,6 +92,14 @@ public class Route {
 		this.flight = flight;
 	}
 
+	public Set<Ticket> getTicket() {
+		return ticket;
+	}
+
+	public void setTicket(Set<Ticket> ticket) {
+		this.ticket = ticket;
+	}
+
 	public LocalTime getDepartureTime() {
 		return departureTime;
 	}
@@ -109,5 +123,5 @@ public class Route {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
+
 }

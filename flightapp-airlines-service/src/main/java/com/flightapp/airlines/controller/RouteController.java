@@ -27,9 +27,16 @@ public class RouteController {
 			@RequestParam("end") String arrival, @RequestParam("roundtrip") String isRoundTrip) {
 
 		System.out.println("arrival - " + arrival + "departure - " + departure);
-		List<RouteSDO> allRoutes = routeService.getAllRoutes(fromCity, toCity, LocalTime.parse(arrival),
-				LocalTime.parse(departure), isRoundTrip);
+		List<RouteSDO> allRoutes = routeService.getAllRoutes(fromCity, toCity, convertStringToTime(arrival),
+				convertStringToTime(departure), isRoundTrip);
 		return new ResponseEntity<List<RouteSDO>>(allRoutes, HttpStatus.OK);
 	};
+
+	private LocalTime convertStringToTime(String time) {
+		if (time != null && !time.isEmpty()) {
+			return LocalTime.parse(time);
+		}
+		return null;
+	}
 
 }

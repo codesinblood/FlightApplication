@@ -12,7 +12,7 @@
 	<groupId>com.flightapp</groupId>
 	<artifactId>flightapp-booking-service</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>flightapp-booking-service</name>
 	<description>flightapp-booking-service</description>
 	<properties>
@@ -25,19 +25,19 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.5.12</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -59,8 +59,20 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>com.flightapp</groupId>
+			<artifactId>flightapp-airlines-service</artifactId>
+			<version>0.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 
+	</dependencies>
+	<repositories>
+    <repository>
+        <id>flightapp-airlines-service</id>
+        <url>file:///${project.basedir}/libs</url>
+    </repository>
+</repositories>
 	<build>
 		<plugins>
 			<plugin>

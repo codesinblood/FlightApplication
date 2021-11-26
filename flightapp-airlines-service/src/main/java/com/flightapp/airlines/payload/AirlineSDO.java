@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "API object for Airline entity")
 public class AirlineSDO {
-	
+
 	private int airlineId;
 
 	private String name;
@@ -49,8 +49,7 @@ public class AirlineSDO {
 
 	@Override
 	public String toString() {
-		return "AirlineSDO [airlineId=" + airlineId + ", name=" + name + ", status="
-				+ status + "]";
+		return "AirlineSDO [airlineId=" + airlineId + ", name=" + name + ", status=" + status + "]";
 	}
-	
+
 }

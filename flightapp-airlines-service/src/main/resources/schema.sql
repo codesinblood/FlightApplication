@@ -1,3 +1,5 @@
+drop table if exists mydb.passenger;
+drop table if exists mydb.ticket;
 drop table if exists mydb.route;
 drop table if exists mydb.flight;
 drop table if exists mydb.airline;
@@ -33,4 +35,29 @@ CREATE TABLE mydb.route (
 	STATUS varchar(1) NOT NULL,
 	PRIMARY KEY(ROUTEID),
 	FOREIGN KEY (FLIGHTID) REFERENCES mydb.flight(FLIGHTID)
+);
+
+
+CREATE TABLE mydb.ticket (
+	TICKETID int NOT NULL AUTO_INCREMENT,
+	PNR VARCHAR(100) NOT NULL UNIQUE,
+	BOOKINGDATE DATETIME NOT NULL,
+	TRAVELDATE DATETIME NOT NULL,
+	ISROUNDTRIP VARCHAR(1), 
+	ISMEALREQUIRED VARCHAR(1),
+	ROUTEID int, 
+    BOOKINGSTATUS VARCHAR(25) NOT NULL,
+    TICKETSTATUS VARCHAR(25) NOT NULL,
+    CUSTOMEREMAIL VARCHAR(100) NOT NULL,
+	PRIMARY KEY(TICKETID),
+	FOREIGN KEY (ROUTEID) REFERENCES mydb.route(ROUTEID)
+);
+
+CREATE TABLE mydb.passenger (
+    PASSENGERID int NOT NULL AUTO_INCREMENT,
+    TICKETID int,
+    NAME varchar(255),
+    AGE int,
+	PRIMARY KEY(PASSENGERID),
+    FOREIGN KEY (TICKETID) REFERENCES mydb.ticket(TICKETID)
 );

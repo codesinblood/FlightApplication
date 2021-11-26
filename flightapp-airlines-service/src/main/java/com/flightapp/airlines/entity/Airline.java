@@ -32,7 +32,7 @@ public class Airline {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "STATUS")
 	private Status status;
-	
+
 	@OneToMany(mappedBy = "airline")
 	private Set<Flight> flights;
 
